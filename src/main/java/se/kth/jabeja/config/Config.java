@@ -5,6 +5,7 @@ public class Config {
   private Integer rounds;
   private Integer randomNeighborsSampleSize;
   private Float temperature;
+  private Float temperatureAlpha;
   private Float delta;
   private Integer seed;
   private Integer uniformRandomSampleSize;
@@ -158,7 +159,16 @@ public class Config {
     return alpha;
   }
 
-  public Config createJabejaConfig() {
+    public Float getTemperatureAlpha() {
+        return temperatureAlpha;
+    }
+
+    public Config setTemperatureAlpha(Float temperatureAlpha) {
+        this.temperatureAlpha = temperatureAlpha;
+        return this;
+    }
+
+    public Config createJabejaConfig() {
     return new Config();
   }
 

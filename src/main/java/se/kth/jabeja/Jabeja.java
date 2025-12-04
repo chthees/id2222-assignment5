@@ -18,6 +18,7 @@ public class Jabeja {
   private int numberOfSwaps;
   private int round;
   private float T;
+  private float T_ALPHA;
   private boolean resultFileCreated = false;
 
   //-------------------------------------------------------------------
@@ -28,6 +29,7 @@ public class Jabeja {
     this.numberOfSwaps = 0;
     this.config = config;
     this.T = config.getTemperature();
+    this.T_ALPHA = config.getTemperatureAlpha();
   }
 
 
@@ -49,11 +51,7 @@ public class Jabeja {
    * Simulated analealing cooling function
    */
   private void saCoolDown(){
-    // TODO for second task
-    if (T > 1)
-      T -= config.getDelta();
-    if (T < 1)
-      T = 1;
+    T = T*T_ALPHA;
   }
 
   /**
@@ -85,8 +83,6 @@ public class Jabeja {
         partner.setColor(temp);
         numberOfSwaps++;
     }
-
-    saCoolDown();
   }
 
   public Node findPartner(int nodeId, Integer[] nodes){
@@ -117,6 +113,14 @@ public class Jabeja {
           bestPartner = nodeq;
         }
       }
+
+//      double acceptanceProbability = Math.min(1, Math.exp((newBenefit - currentBenefit) / T));
+//      double randomProb = Math.random();
+//
+//      if (acceptanceProbability > randomProb && newBenefit > highestBenefit) {
+//          highestBenefit = newBenefit;
+//          bestPartner = nodeq;
+//      }
 
     return bestPartner;
   }

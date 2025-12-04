@@ -29,7 +29,7 @@ public class CLI {
   private int UNIFORM_RAND_SAMPLE_SIZE = 6;
 
   @Option(name = "-temp", usage = "Simulated annealing temperature.")
-  private float TEMPERATURE = 2;
+  private float TEMPERATURE = 1;
 
   @Option(name = "-delta", usage = "Simulated annealing delta.")
   private float DELTA = (float) 0.003;
@@ -56,6 +56,10 @@ public class CLI {
 
   @Option(name = "-outputDir", usage = "Location of the output file(s)")
   private static String OUTPUT_DIR = "./output";
+
+  @Option(name="-tempAlpha", usage="Temperature reduction factor.")
+  private float TEMP_ALPHA = 0.95f;
+
 
   public Config parseArgs(String[] args) throws FileNotFoundException {
     CmdLineParser parser = new CmdLineParser(this);
@@ -110,6 +114,7 @@ public class CLI {
             .setNodeSelectionPolicy(nodeSelectionPolicy)
             .setGraphInitialColorPolicy(graphInitColorSelectionPolicy)
             .setOutputDir(OUTPUT_DIR)
-            .setAlpha(ALPHA);
+            .setAlpha(ALPHA)
+            .setTemperatureAlpha(TEMP_ALPHA);
   }
 }
