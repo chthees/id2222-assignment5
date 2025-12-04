@@ -13,6 +13,7 @@ public class Config {
   private GraphInitColorPolicy initColorPolicy;
   private NodeSelectionPolicy nodeSelectionPolicy;
   private Float alpha;
+  private Boolean restartTemp;
 
   public Config setAlpha(Float alpha) {
     this.alpha = alpha;
@@ -158,7 +159,16 @@ public class Config {
     return alpha;
   }
 
-  public Config createJabejaConfig() {
+  public Config setRestartTemp(Boolean restartTemp) {
+    this.restartTemp = restartTemp;
+    return this;
+  }
+
+  public Boolean getRestartTemp() {
+    return restartTemp;
+  }
+
+    public Config createJabejaConfig() {
     return new Config();
   }
 

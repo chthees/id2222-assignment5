@@ -19,6 +19,7 @@ public class Jabeja {
   private int round;
   private float T;
   private boolean resultFileCreated = false;
+  private boolean isRestartTemp;
 
   //-------------------------------------------------------------------
   public Jabeja(HashMap<Integer, Node> graph, Config config) {
@@ -28,11 +29,13 @@ public class Jabeja {
     this.numberOfSwaps = 0;
     this.config = config;
     this.T = config.getTemperature();
+    this.isRestartTemp = config.getRestartTemp();
   }
 
 
   //-------------------------------------------------------------------
   public void startJabeja() throws IOException {
+    int stagnation = 0;
     for (round = 0; round < config.getRounds(); round++) {
       for (int id : entireGraph.keySet()) {
         sampleAndSwap(id);
@@ -40,7 +43,10 @@ public class Jabeja {
 
       //one cycle for all nodes have completed.
       //reduce the temperature
-      saCoolDown();
+      if (T==1) {
+        stagnation++;
+      }
+      saCoolDown(stagnation);
       report();
     }
   }
@@ -48,12 +54,14 @@ public class Jabeja {
   /**
    * Simulated analealing cooling function
    */
-  private void saCoolDown(){
-    // TODO for second task
+  private void saCoolDown(int stagnation) {
     if (T > 1)
       T -= config.getDelta();
     if (T < 1)
       T = 1;
+    if(T==1 && isRestartTemp && stagnation >=100){
+      T = config.getTemperature();
+    }
   }
 
   /**
@@ -85,8 +93,6 @@ public class Jabeja {
         partner.setColor(temp);
         numberOfSwaps++;
     }
-
-    saCoolDown();
   }
 
   public Node findPartner(int nodeId, Integer[] nodes){

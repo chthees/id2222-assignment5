@@ -40,6 +40,9 @@ public class CLI {
   @Option(name = "-alpha", usage = "Alpah parameter")
   private float ALPHA = 2;
 
+  @Option(name = "-restartTemp", usage = "Restart temperature.")
+  private boolean RESTART_TEMP = false;
+
   @Option(name = "-randNeighborsSampleSize", usage = "Number of random neighbors sample size.")
   private int randNeighborsSampleSize = 3;
 
@@ -110,6 +113,7 @@ public class CLI {
             .setNodeSelectionPolicy(nodeSelectionPolicy)
             .setGraphInitialColorPolicy(graphInitColorSelectionPolicy)
             .setOutputDir(OUTPUT_DIR)
-            .setAlpha(ALPHA);
+            .setAlpha(ALPHA)
+            .setRestartTemp(RESTART_TEMP);
   }
 }
