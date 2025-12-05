@@ -41,7 +41,7 @@ public class CLI {
   private float ALPHA = 2;
 
   @Option(name = "-restartTemp", usage = "Restart temperature.")
-  private boolean RESTART_TEMP = false;
+  private boolean RESTART_TEMP = true;
 
   @Option(name = "-randNeighborsSampleSize", usage = "Number of random neighbors sample size.")
   private int randNeighborsSampleSize = 3;

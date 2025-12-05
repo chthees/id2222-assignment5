@@ -45,6 +45,8 @@ public class Jabeja {
       //reduce the temperature
       if (T==1) {
         stagnation++;
+      }else{
+        stagnation = 0;
       }
       saCoolDown(stagnation);
       report();
@@ -59,7 +61,7 @@ public class Jabeja {
       T -= config.getDelta();
     if (T < 1)
       T = 1;
-    if(T==1 && isRestartTemp && stagnation >=100){
+    if(T==1 && isRestartTemp && stagnation >=200){
       T = config.getTemperature();
     }
   }
