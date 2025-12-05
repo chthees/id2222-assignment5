@@ -93,34 +93,29 @@ public class Jabeja {
     double highestBenefit = 0;
 
     for (Integer qId : nodes) {
-      Node nodeq = entireGraph.get(qId);
+        Node nodeq = entireGraph.get(qId);
 
-      if (nodep.getColor() == nodeq.getColor()) {
-        // not part of the algorithm of the paper, but makes sense to skip
-        continue;
-      }
-
-      int dpp = getDegree(nodep, nodep.getColor());
-      int dqq = getDegree(nodeq, nodeq.getColor());
-      int dpq = getDegree(nodep, nodeq.getColor());
-      int dqp = getDegree(nodeq, nodep.getColor());
-
-      double currentBenefit = Math.pow(dpp, config.getAlpha()) + Math.pow(dqq, config.getAlpha());
-      double newBenefit = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
-
-      if (newBenefit * T > currentBenefit && newBenefit > highestBenefit) {
-          highestBenefit = newBenefit;
-          bestPartner = nodeq;
+        if (nodep.getColor() == nodeq.getColor()) {
+            // not part of the algorithm of the paper, but makes sense to skip
+            continue;
         }
-      }
 
-//      double acceptanceProbability = Math.min(1, Math.exp((newBenefit - currentBenefit) / T));
-//      double randomProb = Math.random();
-//
-//      if (acceptanceProbability > randomProb && newBenefit > highestBenefit) {
-//          highestBenefit = newBenefit;
-//          bestPartner = nodeq;
-//      }
+        int dpp = getDegree(nodep, nodep.getColor());
+        int dqq = getDegree(nodeq, nodeq.getColor());
+        int dpq = getDegree(nodep, nodeq.getColor());
+        int dqp = getDegree(nodeq, nodep.getColor());
+
+        double currentBenefit = Math.pow(dpp, config.getAlpha()) + Math.pow(dqq, config.getAlpha());
+        double newBenefit = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
+
+        double acceptanceProbability = Math.min(1, Math.exp((newBenefit - currentBenefit) / T));
+        double randomProb = Math.random();
+
+        if (acceptanceProbability > randomProb && newBenefit > highestBenefit) {
+            highestBenefit = newBenefit;
+            bestPartner = nodeq;
+        }
+    }
 
     return bestPartner;
   }
